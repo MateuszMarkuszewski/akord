@@ -1,0 +1,11 @@
+
+
+
+
+    {% for my_video in videos %}
+        {% autoescape off %}
+        {{ my_video.url }}
+        {% endautoescape %}
+    {% endfor %}
+
+
