@@ -1,1 +1,39 @@
-{% extends 'blog/base.html' %}
+{% load akord_tags %}
+{% regroup piosenki by kategoria as piosenki_grouped %}
+
+<div class="container ">
+  <h2 class="text-center">Repertuar</h2>
+  <ul class="nav nav-tabs">
+      {% for kat in kat_piosenki %}
+          {% if forloop.counter0 == 0 %}
+                 <li class="active"><a data-toggle="tab" href={{ kat.nazwa_ketegori|make_ref_to_id }}>{{ kat.nazwa_ketegori }}</a></li>
+          {% else %}
+                <li><a data-toggle="tab" href={{ kat.nazwa_ketegori|make_ref_to_id }}>{{ kat.nazwa_ketegori }}</a></li>
+          {% endif %}
+      {% endfor %}
+  </ul>
+
+  <div class="tab-content">
+    {% for kat in kat_piosenki %}
+        {% if forloop.counter0 == 0 %}
+              <div id={{ kat.nazwa_ketegori }} class="tab-pane fade in active">
+                <h2>{{ kat.nazwa_ketegori }}</h2>
+                  {% for piosenka in piosenki %}
+                  {% if piosenka.kategoria == kat %}
+                    <p>{{ piosenka.tytul }}</p>
+                  {% endif %}
+                  {% endfor %}
+              </div>
+        {% else %}
+          <div id={{ kat.nazwa_ketegori }} class="tab-pane fade">
+              <h2>{{ kat.nazwa_ketegori }}</h2>
+                {% for piosenka in piosenki %}
+                  {% if piosenka.kategoria == kat %}
+                    <p>{{ piosenka.tytul }}</p>
+                  {% endif %}
+                  {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+  </div>
+</div>

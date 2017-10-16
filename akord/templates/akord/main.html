@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <head>
@@ -10,6 +11,50 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
+.page {
+  padding: 15px 0 0;
+}
+
+.bmd-modalButton {
+  display: block;
+  margin: 15px auto;
+  padding: 5px 15px;
+}
+
+.close-button {
+  overflow: hidden;
+}
+
+.bmd-modalContent {
+  box-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.bmd-modalContent .close {
+  font-size: 30px;
+  line-height: 30px;
+  padding: 7px 4px 7px 13px;
+  text-shadow: none;
+  opacity: .7;
+  color:#fff;
+}
+
+.bmd-modalContent .close span {
+  display: block;
+}
+
+.bmd-modalContent .close:hover,
+.bmd-modalContent .close:focus {
+  opacity: 1;
+  outline: none;
+}
+
+.bmd-modalContent iframe {
+  display: block;
+  margin: 0 auto;
+}
+
   body {
       font: 400 15px/1.8 Lato, sans-serif;
       color: #777;
@@ -28,16 +73,16 @@
       margin-bottom: 25px;
       width: 80%;
       height: 80%;
-      opacity: 0.7;
+      opacity: 0.9;
   }
   .person:hover {
       border-color: #f1f1f1;
   }
   .carousel-inner img {
-      -webkit-filter: grayscale(90%);
-      filter: grayscale(90%); /* make all photos black and white */
       width: 100%; /* Set width to 100% */
       margin: auto;
+      height: auto;
+      opacity: 0.9;
   }
   .carousel-caption h3 {
       color: #fff !important;
@@ -97,8 +142,7 @@
   #googleMap {
       width: 100%;
       height: 400px;
-      -webkit-filter: grayscale(100%);
-      filter: grayscale(100%);
+
   }
   .navbar {
       font-family: Montserrat, sans-serif;
@@ -151,7 +195,6 @@
       resize: none;
   }
 
-
   .slideanimup {visibility:hidden;}
   .slideup {
     /* The name of the animation */
@@ -185,6 +228,40 @@
         -webkit-transform: translateY(0%);
     }
   }
+
+  .slideanimleft {visibility:hidden;}
+  .slideleft {
+    /* The name of the animation */
+    animation-name: slideleft;
+    -webkit-animation-name: slideleft;
+    /* The duration of the animation */
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    /* Make the element visible */
+    visibility: visible;
+  }
+
+/* Go from 0% to 100% opacity (see-through) and specify the percentage from when to slide in the element along the Y-axis */
+  @keyframes slideleft {
+    0% {
+        opacity: 0;
+        transform: translateX(70%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+  }
+  @-webkit-keyframes slideleft {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(70%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0%);
+    }
+  }
   </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -197,14 +274,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#myPage">TTTTTTT</a>
+      <a class="navbar-brand" href="#myPage">AKORD CWA</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#home">HOME</a></li>
-        <li><a href="#zdj">ZDJ</a></li>
+        <li><a href="#zdj">ZDJECIA</a></li>
         <li><a href="#video">WIDEO</a></li>
-        <li><a href="#contact">KONTAKT</a></li>
+        <li><a href="#repertuar">REPERTUAR</a></li>
+        <li><a href="#kontakt">KONTAKT</a></li>
       </ul>
     </div>
   </div>
@@ -221,7 +299,9 @@
 <div id="video">
 {% include "akord/video.html" %}
 </div>
-
+<div id="repertuar">
+{% include "akord/repertuar.html" %}
+</div>
 <div id="kontakt">
 {% include "akord/kontakt.html" %}
 </div>
@@ -246,17 +326,34 @@ marker.setMap(map);
 </footer>
 
 <script>
+function modals() {
+    alert("The video is now playing");
+  }
+  (function( $ ){
+   $.fn.myfunction = function() {
+      alert('hello world');
+   };
+  })( jQuery );
 $(document).ready(function(){
-  $(window).scroll(function() {
-  $(".slideanimup").each(function(){
-    var pos = $(this).offset().top;
 
-    var winTop = $(window).scrollTop();
-    if (pos < winTop + 600) {
-      $(this).addClass("slideup");
-    }
+  $(window).scroll(function() {
+    $(".slideanimup").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+      if (pos < winTop + 600) {
+        $(this).addClass("slideup");
+      }
+    });
+    $(".slideanimleft").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+      if (pos < winTop + 600) {
+        $(this).addClass("slideleft");
+      }
+    });
   });
-});
 
   $('[data-toggle="tooltip"]').tooltip();
   $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
@@ -272,6 +369,7 @@ $(document).ready(function(){
       });
     } // End if
   });
+
 })
 </script>
 
