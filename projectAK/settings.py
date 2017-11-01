@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'bootstrap3',
     'akord',
     'embed_video',
-    'youtubeurl_field',
     'jquery',
     'django_tables2',
 ]
@@ -135,4 +134,3 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
-
